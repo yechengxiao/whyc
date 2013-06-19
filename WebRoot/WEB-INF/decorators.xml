@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+	<excludes>
+		<pattern>/logout.action</pattern>
+		<pattern>/proRegist.action</pattern>
+		<pattern>/proLogin.action</pattern>
+	</excludes>
+	<decorator name="mian" page="/decorator/deco.jsp">
+		<pattern>/*.action</pattern>
+	</decorator>
+</decorators>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.action.extension" value="action" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+
+	<!-- 注册时，使用ajax判断用户名可用性 -->
+	<package name="valiName" namespace="/" extends="json-default">
+		<action name="validateName" class="com.ycx.action.reglog.ValidateNameAction">
+			<result type="json" />
+		</action>
+	</package>
+
+	<package name="dafault" namespace="/" extends="struts-default">
+		<!-- 拦截器 -->
+		<interceptors>
+			<interceptor name="auth"
+				class="com.ycx.action.interceptor.AuthInterceptor" />
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="auth" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="authStack" />
+
+		<!-- 全局result -->
+		<global-results>
+			<result name="login">login.jsp</result>
+			<result name="exception">/WEB-INF/jsp/error.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</global-results>
+
+		<!-- 全局exception -->
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="exception" />
+		</global-exception-mappings>
+
+		<!-- 查看监测指标 -->
+		<action name="viewAllIndis" class="com.ycx.action.ViewAllIndisAction">
+			<result name="success">/WEB-INF/jsp/viewAllIndis.jsp</result>
+		</action>
+		<action name="viewIndi" class="com.ycx.action.ViewIndiAction">
+			<result name="success">/WEB-INF/jsp/viewIndi.jsp</result>
+		</action>
+		<!-- 添加监测指标 -->
+		<action name="mgrIndi" class="com.ycx.action.MgrIndiAction">
+			<result name="success">/WEB-INF/jsp/proAddIndi.jsp</result>
+		</action>
+		<action name="proAddIndi" class="com.ycx.action.ProAddIndiAction">
+			<result name="success" type="chain">viewAllIndis</result>
+			<result name="input" type="chain">mgrIndi</result>
+			<!-- 防重复提交 -->
+			<result name="invalid.token">/WEB-INF/jsp/error.jsp</result>
+			<interceptor-ref name="authStack" />
+			<interceptor-ref name="token" />
+		</action>
+		<!-- 监测指标，删除、修改、搜索 -->
+		<action name="deleteIndi" class="com.ycx.action.IndicatorAction" method="deleteIndi">
+			<result name="success" type="chain">viewAllIndis</result>
+		</action>
+		<action name="searchIndi" class="com.ycx.action.IndicatorAction" method="searchIndi">
+			<result name="success" >/WEB-INF/jsp/viewAllIndis.jsp</result>
+		</action>
+		<!-- 查看预警指标 -->
+		<action name="viewAllWCons" class="com.ycx.action.ViewAllWConsAction">
+			<result name="success">/WEB-INF/jsp/viewAllWCons.jsp</result>
+		</action>
+		<!-- 添加预警指标 -->
+		<action name="mgrWCon" class="com.ycx.action.MgrWConAction">
+			<result name="success">/WEB-INF/jsp/proAddWCon.jsp</result>
+		</action>
+		<action name="proAddWarncontent" class="com.ycx.action.ProAddWConAction">
+			<result name="success" type="chain">viewAllWCons</result>
+			<result name="input" type="chain">mgrWCon</result>
+			<!-- 防重复提交 -->
+			<result name="invalid.token">/WEB-INF/jsp/error.jsp</result>
+			<interceptor-ref name="authStack" />
+			<interceptor-ref name="token" />
+		</action>
+		<!-- 预警指标，删除、修改 -->
+		<action name="deleteWCon" class="com.ycx.action.WarncontentAction" method="deleteWCon">
+			<result name="success" type="chain">viewAllWCons</result>
+		</action>
+		<!-- 查看任务 -->
+		<action name="viewAvailWorks" class="com.ycx.action.ViewAvailWorksAction">
+			<result name="success">/WEB-INF/jsp/viewAvailWorks.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<action name="viewWork" class="com.ycx.action.ViewWorkAction">
+			<result name="success">/WEB-INF/jsp/viewWork.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<!-- 查看是否有预警 -->
+		<action name="viewAvailWtodos" class="com.ycx.action.ViewAvailWtodosAction">
+			<result name="success">/WEB-INF/jsp/viewAvailWtodos.jsp</result>
+		</action>
+		<action name="viewWtodo" class="com.ycx.action.ViewWtodoAction">
+			<result name="success">/WEB-INF/jsp/viewWtodo.jsp</result>
+		</action>
+		<!-- 发布任务 -->
+		<action name="pubWork" class="com.ycx.action.PubWorkAction">
+			<result name="success" type="chain">viewAllIndis</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<!-- 处理任务：更新任务时间、产生预警 -->
+		<action name="*Action" class="com.ycx.action.ProWorkAction" method="{1}">
+			<result name="update" type="chain">viewAvailWorks</result>
+			<result name="create" type="chain">viewAvailWorks</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<!-- 查看历史预警 -->
+		<action name="viewHisWtd" class="com.ycx.action.ViewHisWtdAction">
+			<result name="success">/WEB-INF/jsp/viewHisWtd.jsp</result>
+		</action>
+		<!-- 预警处理意见 -->
+		<action name="doneWtodo" class="com.ycx.action.ProDoneWtodoAction">
+			<result name="success" type="chain">viewHisWtd</result>
+			<result name="input" type="chain">viewWtodo</result>
+		</action>
+		<!-- 查看事件 -->
+		<action name="viewAvailWstodos" class="com.ycx.action.ViewAvailWstodosAction">
+			<result name="success">/WEB-INF/jsp/error.jsp</result>
+		</action>
+		<!-- 首页 -->
+		<action name="homepage" class="com.ycx.action.HomepageAction">
+			<result name="success">/WEB-INF/jsp/homepage.jsp</result>
+		</action>
+
+		<!-- 注册 -->
+		<action name="proRegist" class="com.ycx.action.reglog.RegistAction">
+			<result name="success" type="redirect">/login.jsp</result>
+			<result name="failure">/regist.jsp</result>
+			<result name="input">/regist.jsp</result>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<!-- 登录 -->
+		<action name="proLogin" class="com.ycx.action.reglog.LoginAction">
+			<result name="success" type="redirectAction">homepage</result>
+			<result name="input">/login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<!-- 登出 -->
+		<action name="logout" class="com.ycx.action.reglog.LogoutAction">
+			<result name="success">/logout.jsp</result>
+		</action>
+
+	</package>
+
+</struts>    

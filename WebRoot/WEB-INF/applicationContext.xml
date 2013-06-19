@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost/whyc" />
+		<property name="user" value="root" />
+		<property name="password" value="4382030" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource"></ref>
+		</property>
+	</bean>
+
+	<!--万恶的分割线。以下是DAO -->
+	<bean id="IndiWarnDAO" class="com.ycx.dao.impl.IndiWarnDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="IndicatorDAO" class="com.ycx.dao.impl.IndicatorDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KindDAO" class="com.ycx.dao.impl.KindDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="WarncontentDAO" class="com.ycx.dao.impl.WarncontentDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="WarnlevelDAO" class="com.ycx.dao.impl.WarnlevelDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="WarnstodoDAO" class="com.ycx.dao.impl.WarnstodoDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="WarntodoDAO" class="com.ycx.dao.impl.WarntodoDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="WorkDAO" class="com.ycx.dao.impl.WorkDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="UserDAO" class="com.ycx.dao.impl.UserDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="MatchDAO" class="com.ycx.dao.impl.MatchDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!--万恶的分割线。以下是 service 。用来实例化对象。 -->
+	<bean id="oneService" class="com.ycx.service.impl.OneServiceImpl">
+		<property name="userDAO">
+			<ref bean="UserDAO" />
+		</property>
+		<property name="indiDAO">
+			<ref bean="IndicatorDAO" />
+		</property>
+		<property name="kindDAO">
+			<ref bean="KindDAO" />
+		</property>
+		<property name="iwDAO">
+			<ref bean="IndiWarnDAO" />
+		</property>
+		<property name="warncontentDAO">
+			<ref bean="WarncontentDAO" />
+		</property>
+		<property name="warnlevelDAO">
+			<ref bean="WarnlevelDAO" />
+		</property>
+		<property name="workDAO">
+			<ref bean="WorkDAO" />
+		</property>
+		<property name="matchDAO">
+			<ref bean="MatchDAO" />
+		</property>
+		<property name="warntodoDAO">
+			<ref bean="WarntodoDAO" />
+		</property>
+	</bean>
+
+	<!--万恶的分割线。transaction -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<!-- 事务拦截器bean需要依赖注入一个事务管理器 -->
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<!-- 下面定义事务传播属性 -->
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 定义BeanNameAutoProxyCreator -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<!-- 指定对满足哪些bean name的bean自动生成业务代理 -->
+		<property name="beanNames">
+			<!-- 下面是所有需要自动创建事务代理的bean -->
+			<list>
+				<value>oneService</value>
+			</list>
+			<!-- 此处可增加其他需要自动创建事务代理的bean -->
+		</property>
+		<!-- 下面定义BeanNameAutoProxyCreator所需的事务拦截器 -->
+		<property name="interceptorNames">
+			<list>
+				<!-- 此处可增加其他新的Interceptor -->
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	<!--万恶的分割线。自动更新 -->
+	<bean id="checkWDoDate" class="com.ycx.schedule.CheckWDoDate">
+		<property name="oneService">
+			<ref bean="oneService" />
+		</property>
+	</bean>
+	<bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="delay" value="0" />
+		<property name="period" value="86400000" />
+		<property name="timerTask" ref="checkWDoDate" />
+	</bean>
+	<bean id="timerfactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduledTask" />
+			</list>
+		</property>
+	</bean>
+	<!--万恶的分割线。 -->
+</beans>
