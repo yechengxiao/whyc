@@ -1,7 +1,5 @@
-whyc
+whyc--毕业设计
 ====
-
-#毕业设计
 
 ##MENU
 
@@ -16,6 +14,8 @@ whyc
 ##DONE
 
   * login/regist
+  * ajax判断用户名--重复性
+
   * homepage-->show warnlevel count
   * viewAllWCons-->addWarncontent
   * viewAllIndis-->viewIndi\addIndi-->pubWork
@@ -23,7 +23,6 @@ whyc
   * viewAllWarntodo-->viewWarntodo
   
   * logout
-  * ajax判断用户名--重复性
   * 防重复提交
   * 删除
   
