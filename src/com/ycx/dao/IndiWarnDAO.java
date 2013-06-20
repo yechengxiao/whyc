@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ycx.model.IndiWarn;
 
-public interface IndiWarnDAO {
+public interface IndiWarnDao {
 
 	public void save(IndiWarn transientInstance);
 

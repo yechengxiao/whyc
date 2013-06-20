@@ -6,11 +6,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.ycx.dao.IndiWarnDAO;
+import com.ycx.dao.IndiWarnDao;
 import com.ycx.model.IndiWarn;
 
-public class IndiWarnDAOImpl extends HibernateDaoSupport implements IndiWarnDAO {
-	private static final Log log = LogFactory.getLog(IndiWarnDAOImpl.class);
+public class IndiWarnDaoImpl extends HibernateDaoSupport implements IndiWarnDao {
+	private static final Log log = LogFactory.getLog(IndiWarnDaoImpl.class);
 
 	protected void initDao() {
 	}

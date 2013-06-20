@@ -6,11 +6,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.ycx.dao.MatchDAO;
+import com.ycx.dao.MatchDao;
 import com.ycx.model.Match;
 
-public class MatchDAOImpl extends HibernateDaoSupport implements MatchDAO {
-	private static final Log log = LogFactory.getLog(MatchDAOImpl.class);
+public class MatchDaoImpl extends HibernateDaoSupport implements MatchDao {
+	private static final Log log = LogFactory.getLog(MatchDaoImpl.class);
 
 	protected void initDao() {
 	}

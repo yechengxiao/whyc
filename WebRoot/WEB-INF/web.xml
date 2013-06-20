@@ -43,7 +43,7 @@
 	<!-- 校验码 -->
 	<servlet>
 		<servlet-name>authImg</servlet-name>
-		<servlet-class>com.ycx.auth.AuthImg</servlet-class>
+		<servlet-class>com.ycx.util.auth.AuthImg</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>authImg</servlet-name>

@@ -1,9 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebRoot/WEB-INF/jsp/viewAllIndis.jsp=UTF-8
 encoding//WebRoot/js/util.js=UTF-8
-encoding//src/com/ycx/action/ProAddIndiAction.java=utf-8
-encoding//src/com/ycx/action/ProDoneWtodoAction.java=utf-8
-encoding//src/com/ycx/action/ViewAvailWstodosAction.java=UTF-8
-encoding//src/com/ycx/action/reglog/ValidateNameAction.java=UTF-8
-encoding//src/com/ycx/service/impl/OneServiceImpl.java=UTF-8
+encoding//src/com/ycx/indicator/action/ProAddIndiAction.java=utf-8
+encoding//src/com/ycx/warnstodo/action/ViewAvailWstodosAction.java=UTF-8
+encoding//src/com/ycx/warntodo/action/ProDoneWtodoAction.java=utf-8
 encoding/<project>=UTF-8

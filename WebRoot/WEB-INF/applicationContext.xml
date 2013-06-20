@@ -20,86 +20,91 @@
 	</bean>
 
 	<!--万恶的分割线。以下是DAO -->
-	<bean id="IndiWarnDAO" class="com.ycx.dao.impl.IndiWarnDAOImpl">
+	<bean id="iwDao" class="com.ycx.dao.impl.IndiWarnDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="IndicatorDAO" class="com.ycx.dao.impl.IndicatorDAOImpl">
+	<bean id="indiDao" class="com.ycx.indicator.dao.IndicatorDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="KindDAO" class="com.ycx.dao.impl.KindDAOImpl">
+	<bean id="kindDao" class="com.ycx.dao.impl.KindDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="WarncontentDAO" class="com.ycx.dao.impl.WarncontentDAOImpl">
+	<bean id="wcDao" class="com.ycx.warncontent.dao.WarncontentDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="WarnlevelDAO" class="com.ycx.dao.impl.WarnlevelDAOImpl">
+	<bean id="wlDao" class="com.ycx.warnlevel.dao.WarnlevelDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="WarnstodoDAO" class="com.ycx.dao.impl.WarnstodoDAOImpl">
+	<bean id="wstdDao" class="com.ycx.warnstodo.dao.WarnstodoDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="WarntodoDAO" class="com.ycx.dao.impl.WarntodoDAOImpl">
+	<bean id="wtdDao" class="com.ycx.warntodo.dao.WarntodoDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="WorkDAO" class="com.ycx.dao.impl.WorkDAOImpl">
+	<bean id="wDao" class="com.ycx.work.dao.WorkDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="UserDAO" class="com.ycx.dao.impl.UserDAOImpl">
+	<bean id="uDao" class="com.ycx.reglog.dao.UserDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="MatchDAO" class="com.ycx.dao.impl.MatchDAOImpl">
+	<bean id="matchDao" class="com.ycx.dao.impl.MatchDaoImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
 
 	<!--万恶的分割线。以下是 service 。用来实例化对象。 -->
-	<bean id="oneService" class="com.ycx.service.impl.OneServiceImpl">
-		<property name="userDAO">
-			<ref bean="UserDAO" />
-		</property>
-		<property name="indiDAO">
-			<ref bean="IndicatorDAO" />
-		</property>
-		<property name="kindDAO">
-			<ref bean="KindDAO" />
-		</property>
-		<property name="iwDAO">
-			<ref bean="IndiWarnDAO" />
-		</property>
-		<property name="warncontentDAO">
-			<ref bean="WarncontentDAO" />
-		</property>
-		<property name="warnlevelDAO">
-			<ref bean="WarnlevelDAO" />
-		</property>
-		<property name="workDAO">
-			<ref bean="WorkDAO" />
-		</property>
-		<property name="matchDAO">
-			<ref bean="MatchDAO" />
-		</property>
-		<property name="warntodoDAO">
-			<ref bean="WarntodoDAO" />
-		</property>
+	<bean id="indiService" class="com.ycx.indicator.service.IndicatorServiceImpl">
+		<property name="indiDao" ref="indiDao" />
+		<property name="kindDao" ref="kindDao" />
+		<property name="matchDao" ref="matchDao" />
+		<property name="iwDao" ref="iwDao" />
+		<property name="wDao" ref="wDao" />
+	</bean>
+	<bean id="wcService" class="com.ycx.warncontent.service.WarncontentServiceImpl">
+		<property name="wcDao" ref="wcDao" />
+		<property name="wlDao" ref="wlDao" />
+		<property name="iwDao" ref="iwDao" />
+	</bean>
+	<bean id="workService" class="com.ycx.work.service.WorkServiceImpl">
+		<property name="wDao" ref="wDao" />
+		<property name="wcDao" ref="wcDao" />
+		<property name="wtdDao" ref="wtdDao" />
+		<property name="iwDao" ref="iwDao" />
+		<property name="wlDao" ref="wlDao" />
+	</bean>
+	<bean id="wtdService" class="com.ycx.warntodo.service.WarntodoServiceImpl">
+		<property name="wtdDao" ref="wtdDao" />
+		<property name="wcDao" ref="wcDao" />
+		<property name="iwDao" ref="iwDao" />
+		<property name="wlDao" ref="wlDao" />
+	</bean>
+	<bean id="wlService" class="com.ycx.warnlevel.service.WarnlevelServiceImpl">
+		<property name="wlDao" ref="wlDao" />
+	</bean>
+	<bean id="userService" class="com.ycx.reglog.service.UserServiceImpl">
+		<property name="uDao" ref="uDao" />
+	</bean>
+	<bean id="hpService" class="com.ycx.homepage.service.HomepageServiceImpl">
+		<property name="wlDao" ref="wlDao" />
 	</bean>
 
 	<!--万恶的分割线。transaction -->
@@ -126,7 +131,12 @@
 		<property name="beanNames">
 			<!-- 下面是所有需要自动创建事务代理的bean -->
 			<list>
-				<value>oneService</value>
+				<value>indiService</value>
+				<value>wcService</value>
+				<value>workService</value>
+				<value>wtdService</value>
+				<value>wlService</value>
+				<value>userService</value>
 			</list>
 			<!-- 此处可增加其他需要自动创建事务代理的bean -->
 		</property>
@@ -139,9 +149,9 @@
 		</property>
 	</bean>
 	<!--万恶的分割线。自动更新 -->
-	<bean id="checkWDoDate" class="com.ycx.schedule.CheckWDoDate">
-		<property name="oneService">
-			<ref bean="oneService" />
+	<bean id="checkWDoDate" class="com.ycx.util.schedule.CheckWDoDate">
+		<property name="workService">
+			<ref bean="workService" />
 		</property>
 	</bean>
 	<bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">

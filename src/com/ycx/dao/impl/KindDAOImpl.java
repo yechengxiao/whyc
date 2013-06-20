@@ -6,11 +6,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.ycx.dao.KindDAO;
+import com.ycx.dao.KindDao;
 import com.ycx.model.Kind;
 
-public class KindDAOImpl extends HibernateDaoSupport implements KindDAO {
-	private static final Log log = LogFactory.getLog(KindDAOImpl.class);
+public class KindDaoImpl extends HibernateDaoSupport implements KindDao {
+	private static final Log log = LogFactory.getLog(KindDaoImpl.class);
 
 	protected void initDao() {
 	}

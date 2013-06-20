@@ -6,7 +6,7 @@
 <hibernate-configuration>
 
 	<session-factory>
-	<!-- Hibernate会自动参考本地数据库发言 -->
+		<!-- Hibernate会自动参考本地数据库发言 -->
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 		</property>
@@ -22,15 +22,16 @@
 		<!-- 指定显示SQL，开发阶段开启 -->
 		<property name="show_sql">true</property>
 
-		<mapping resource="com/ycx/model/Indicator.hbm.xml" />
+		<mapping resource="com/ycx/indicator/entity/Indicator.hbm.xml" />
 		<mapping resource="com/ycx/model/Kind.hbm.xml" />
-		<mapping resource="com/ycx/model/Warncontent.hbm.xml" />
-		<mapping resource="com/ycx/model/Warnlevel.hbm.xml" />
-		<mapping resource="com/ycx/model/Work.hbm.xml" />
+		<mapping
+			resource="com/ycx/warncontent/entity/Warncontent.hbm.xml" />
+		<mapping resource="com/ycx/warnlevel/entity/Warnlevel.hbm.xml" />
+		<mapping resource="com/ycx/work/entity/Work.hbm.xml" />
 		<mapping resource="com/ycx/model/IndiWarn.hbm.xml" />
-		<mapping resource="com/ycx/model/Warnstodo.hbm.xml" />
-		<mapping resource="com/ycx/model/Warntodo.hbm.xml" />
-		<mapping resource="com/ycx/model/User.hbm.xml" />
+		<mapping resource="com/ycx/warnstodo/entity/Warnstodo.hbm.xml" />
+		<mapping resource="com/ycx/warntodo/entity/Warntodo.hbm.xml" />
+		<mapping resource="com/ycx/reglog/entity/User.hbm.xml" />
 		<mapping resource="com/ycx/model/Match.hbm.xml" />
 
 	</session-factory>

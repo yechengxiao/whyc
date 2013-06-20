@@ -21,7 +21,7 @@
                     <comment>监测类别</comment>
                 </column>
             </key>
-            <one-to-many class="com.ycx.model.Indicator" />
+            <one-to-many class="com.ycx.indicator.entity.Indicator" />
         </set>
     </class>
 </hibernate-mapping>

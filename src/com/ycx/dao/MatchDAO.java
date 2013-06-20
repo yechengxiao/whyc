@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ycx.model.Match;
 
-public interface MatchDAO {
+public interface MatchDao {
 
 	public void save(Match transientInstance);
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ycx.model.Kind;
 
-public interface KindDAO {
+public interface KindDao {
 
 	public void save(Kind transientInstance);
 
