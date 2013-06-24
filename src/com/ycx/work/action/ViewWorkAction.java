@@ -13,8 +13,8 @@ public class ViewWorkAction extends BaseActionInterface {
 	private String errorMsg;
 
 	public String execute() throws Exception {
-		int workMatch = wService.getWork(id).getWorkMatch();
-		List indiWarns = wService.getIndiWarn(workMatch);
+		int workMatch = workService.getWork(id).getWorkMatch();
+		List indiWarns = workService.getIndiWarn(workMatch);
 
 		if (indiWarns.size() == 0) {
 			setErrorMsg("ViewWorkAction indiWarns.size=0");
@@ -28,7 +28,7 @@ public class ViewWorkAction extends BaseActionInterface {
 				+ "--------");
 
 		setWcbs(wcbs);
-		setWork(wService.getWork(id));
+		setWork(workService.getWork(id));
 
 		return SUCCESS;
 	}

@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>登录页面</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 </head>
 
@@ -14,9 +15,9 @@
 		如果还没有注册，单击此处<a href="regist.jsp">注册</a>
 		<s:actionmessage />
 		<s:actionerror />
-		
+
 		<s:form action="proLogin.action">
-			<s:textfield name="name" label="用户名" />
+			<s:textfield id="username" name="name" label="用户名" />
 			<s:password name="pass" label="密码" />
 			<s:textfield name="vercode" label="验证码" />
 			<s:submit value="登陆" />

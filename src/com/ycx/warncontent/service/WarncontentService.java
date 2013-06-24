@@ -21,4 +21,6 @@ public interface WarncontentService {
 
 	List getWConsByMatch(int match) throws Exception;
 
+	public abstract List search(String content);
+
 }

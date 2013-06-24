@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class WarncontentBean implements Serializable {
 	private int id;
 	private String content;
-	private String level;
+	private String warnlevel;
 
 	public void setId(int id) {
 		this.id = id;
@@ -23,11 +23,12 @@ public class WarncontentBean implements Serializable {
 		return content;
 	}
 
-	public void setLevel(String level) {
-		this.level = level;
+	public String getWarnlevel() {
+		return warnlevel;
 	}
 
-	public String getLevel() {
-		return level;
+	public void setWarnlevel(String warnlevel) {
+		this.warnlevel = warnlevel;
 	}
+
 }

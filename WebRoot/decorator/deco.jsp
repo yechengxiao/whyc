@@ -63,8 +63,8 @@
 					<div id="search">
 						<form name="formDeco" method="post"  action="">
 							<fieldset>
-							<input type="text" name="s" id="search-text" size="15" value="搜索" />
-							<button id="search-submit"  class="links">GO</button>
+								<input type="text" name="s" id="search-text" size="15" value="搜索" />
+								<button id="search-submit"  class="links">GO</button>
 							</fieldset>
 						</form>
 					</div>
@@ -73,9 +73,8 @@
 							<li>
 								<h2>友情链接：</h2>
 								<ul>
-									<li><a href="http://www.zjut.edu.cn">浙江工业大学</a></li>
-									<li><a href="http://www.software.zjut.edu.cn/">浙工大
-											计算机科学与技术学院</a></li>
+									<li><a href="#">浙江工业大学</a></li>
+									<li><a href="#">浙工大计算机科学与技术学院</a></li>
 									<li><a
 										href="https://plus.google.com/117134075686861601945/posts">找到我</a>
 									</li>
@@ -83,7 +82,7 @@
 							</li>
 							<li>
 								<h2>感谢：</h2>
-								<p>浙江工业大学</p>
+								<p>XXXXX</p>
 							</li>
 						</ul>
 						</div>

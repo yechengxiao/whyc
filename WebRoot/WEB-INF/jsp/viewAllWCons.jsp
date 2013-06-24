@@ -11,6 +11,7 @@
 		<span style="color:red;font-weight:bold"> <s:actionmessage />
 			<s:actionerror /> <s:property value="succMsg" /> </span>
 		<h3>当前所有可用预警指标</h3><a href="mgrWCon.action" class="links">新增</a>
+		<input type="hidden" name="viewAllWcons" value="viewAllWcons" />
 		<form name="formWCon" action="" method="post">
 		<table border="1" width="80%" cellspacing="0" cellpadding="0">
 			<tr>
@@ -26,7 +27,7 @@
 						name="chb" /></td>
 					<td><s:property value="id" /></td>
 					<td><s:property value="content" /></td>
-					<td><s:property value="level" />
+					<td><s:property value="warnlevel" />
 				</tr>
 			</s:iterator>
 		</table>

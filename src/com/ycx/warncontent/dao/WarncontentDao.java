@@ -16,4 +16,6 @@ public interface WarncontentDao {
 
 	public List findAll();
 
+	public abstract List search(String content);
+
 }

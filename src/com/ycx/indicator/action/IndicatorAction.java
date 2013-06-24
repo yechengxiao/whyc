@@ -8,8 +8,8 @@ import com.ycx.action.base.BaseActionInterface;
 public class IndicatorAction extends BaseActionInterface {
 	private String rowFlag;// 传入的多选框id，形如 1|2|
 	private String succMsg;
-	private String searchStr; // 搜索
-	private List ibs;// IndicatorBean;
+	private String searchName; // 搜索
+	private List ibs;// 删除后，显示的IndicatorBean。
 
 	// 删除
 	public String deleteIndi() throws Exception {
@@ -26,7 +26,7 @@ public class IndicatorAction extends BaseActionInterface {
 	// 查询
 	public String searchIndi() throws Exception {
 		try {
-			setIbs(indiService.searchIndi(searchStr));
+			setIbs(indiService.searchIndi(searchName));
 
 			return SUCCESS;
 		} catch (Exception e) {
@@ -52,12 +52,12 @@ public class IndicatorAction extends BaseActionInterface {
 		this.succMsg = succMsg;
 	}
 
-	public String getSearchStr() {
-		return searchStr;
+	public String getSearchName() {
+		return searchName;
 	}
 
-	public void setSearchStr(String searchStr) {
-		this.searchStr = searchStr;
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
 	}
 
 	public List getIbs() {
@@ -67,5 +67,4 @@ public class IndicatorAction extends BaseActionInterface {
 	public void setIbs(List ibs) {
 		this.ibs = ibs;
 	}
-
 }

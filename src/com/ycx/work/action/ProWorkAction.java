@@ -13,7 +13,7 @@ public class ProWorkAction extends BaseActionInterface {
 		if (id == 0) {
 			setMsg("ProWorkAction-->监测指标id怎么会是0");
 		} else {
-			wService.updateWork(id);
+			workService.updateWork(id);
 			setMsg("任务将在到期时显示。");
 			return "update";
 		}
@@ -28,7 +28,7 @@ public class ProWorkAction extends BaseActionInterface {
 			wcids[i] = Integer.parseInt(wc[i]);
 		}
 		if (wcids != null) {
-			wService.createWtodo(id, wcids);
+			workService.createWtodo(id, wcids);
 			setMsg("预警已生产。");
 			return "create";
 		} else {

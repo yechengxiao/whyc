@@ -38,6 +38,7 @@
 				result="exception" />
 		</global-exception-mappings>
 
+		<!-- 监测指标 S -->
 		<!-- 查看监测指标 -->
 		<action name="viewAllIndis" class="com.ycx.indicator.action.ViewAllIndisAction">
 			<result name="success">/WEB-INF/jsp/viewAllIndis.jsp</result>
@@ -66,6 +67,9 @@
 			method="searchIndi">
 			<result name="success">/WEB-INF/jsp/viewAllIndis.jsp</result>
 		</action>
+		<!-- 监测指标 E -->
+		
+		<!-- 预警指标 S -->
 		<!-- 查看预警指标 -->
 		<action name="viewAllWCons" class="com.ycx.warncontent.action.ViewAllWConsAction">
 			<result name="success">/WEB-INF/jsp/viewAllWCons.jsp</result>
@@ -82,11 +86,17 @@
 			<interceptor-ref name="authStack" />
 			<interceptor-ref name="token" />
 		</action>
-		<!-- 预警指标，删除、修改 -->
+		<!-- 预警指标，删除、修改、查询-->
 		<action name="deleteWCon" class="com.ycx.warncontent.action.WarncontentAction"
 			method="deleteWCon">
 			<result name="success" type="chain">viewAllWCons</result>
 		</action>
+		<action name="searchWcon" class="com.ycx.warncontent.action.WarncontentAction"
+			method="searchWcon" >
+			<result name="success" >/WEB-INF/jsp/viewAllWCons.jsp</result>
+		</action>
+		<!-- 预警指标 E -->
+		
 		<!-- 查看任务 -->
 		<action name="viewAvailWorks" class="com.ycx.work.action.ViewAvailWorksAction">
 			<result name="success">/WEB-INF/jsp/viewAvailWorks.jsp</result>
@@ -96,6 +106,7 @@
 			<result name="success">/WEB-INF/jsp/viewWork.jsp</result>
 			<result name="error">/WEB-INF/jsp/error.jsp</result>
 		</action>
+		
 		<!-- 查看是否有预警 -->
 		<action name="viewAvailWtodos" class="com.ycx.warntodo.action.ViewAvailWtodosAction">
 			<result name="success">/WEB-INF/jsp/viewAvailWtodos.jsp</result>
@@ -108,6 +119,11 @@
 			<result name="success" type="chain">viewAllIndis</result>
 			<result name="error">/WEB-INF/jsp/error.jsp</result>
 		</action>
+		<!-- 预警处理意见 -->
+		<action name="doneWtodo" class="com.ycx.warntodo.action.ProDoneWtodoAction">
+			<result name="success" type="chain">viewHisWtd</result>
+			<result name="input" type="chain">viewWtodo</result>
+		</action>
 		<!-- 处理任务：更新任务时间、产生预警 -->
 		<action name="*Action" class="com.ycx.work.action.ProWorkAction"
 			method="{1}">
@@ -119,15 +135,12 @@
 		<action name="viewHisWtd" class="com.ycx.warntodo.action.ViewHisWtdAction">
 			<result name="success">/WEB-INF/jsp/viewHisWtd.jsp</result>
 		</action>
-		<!-- 预警处理意见 -->
-		<action name="doneWtodo" class="com.ycx.warntodo.action.ProDoneWtodoAction">
-			<result name="success" type="chain">viewHisWtd</result>
-			<result name="input" type="chain">viewWtodo</result>
-		</action>
+		
 		<!-- 查看事件 -->
 		<action name="viewAvailWstodos" class="com.ycx.warnstodo.action.ViewAvailWstodosAction">
 			<result name="success">/WEB-INF/jsp/error.jsp</result>
 		</action>
+		
 		<!-- 首页 -->
 		<action name="homepage" class="com.ycx.homepage.action.HomepageAction">
 			<result name="success">/WEB-INF/jsp/homepage.jsp</result>

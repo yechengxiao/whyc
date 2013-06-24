@@ -9,7 +9,7 @@ public class ViewAvailWorksAction extends BaseActionInterface {
 	private String errorMsg;
 
 	public String execute() throws Exception {
-		works = wService.getAvailWorks();
+		works = workService.getAvailWorks();
 
 		if (works != null) {
 			setWorks(works);

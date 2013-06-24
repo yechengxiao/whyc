@@ -14,6 +14,7 @@
 		<span style="color:red;font-weight:bold"> <s:actionmessage />
 			<s:actionerror /> <s:property value="succMsg" /> </span>
 		<h3>点击指标名称进行发布工作</h3><a href="mgrIndi.action" class="links">新增</a>
+		<input type="hidden" name="viewAllIndis" value="viewAllIndis" />
 		<!-- 显示所有预警指标 -->
 		<form name="formIndi" action="" method="post">
 			<table width="80%" border="1" cellspacing="0" cellpadding="0">

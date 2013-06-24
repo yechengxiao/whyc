@@ -1,9 +1,15 @@
 package com.ycx.warncontent.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.ycx.warncontent.entity.Warncontent;
@@ -16,7 +22,8 @@ public class WarncontentDaoImpl extends HibernateDaoSupport implements
 	}
 
 	public void save(Warncontent instance) {
-		System.out.println("------------WarncontentDAOImpl "+instance.getContent());
+		System.out.println("------------WarncontentDAOImpl "
+				+ instance.getContent());
 		log.debug("saving Warncontent instance");
 		try {
 			getHibernateTemplate().save(instance);
@@ -45,7 +52,7 @@ public class WarncontentDaoImpl extends HibernateDaoSupport implements
 		// 截掉末尾的 or
 		hqlDel = hqlDel.substring(0, hqlDel.length() - 2);
 		System.out.println("WarncontentDAOImpl-->hqlDel:" + hqlDel);
-		
+
 		// 批量删除
 		int rownum = getHibernateTemplate().bulkUpdate(hqlDel);
 	}
@@ -71,5 +78,45 @@ public class WarncontentDaoImpl extends HibernateDaoSupport implements
 			log.error("find all failed", re);
 			throw re;
 		}
+	}
+
+	// 搜索
+	@Override
+	public List search(String content) {
+		try {
+			
+			System.out.println(content);
+			
+			StringBuffer queryBuf = new StringBuffer();
+			queryBuf.append("from Warncontent w ");
+			String con = "";
+
+			final String n = new String(content == null ? "" : content.trim());
+
+			if (!n.equals("")) {
+				con += "w.content like :content";
+			}
+			if (!con.trim().equals("")) {
+				queryBuf.append(" where " + con);
+			}
+
+			final String query = new String(queryBuf);
+
+			List list = getHibernateTemplate().executeFind(
+					new HibernateCallback() {
+						public Object doInHibernate(Session session)
+								throws HibernateException, SQLException {
+							Query q = session.createQuery(query);
+							if (!n.equals("")) {
+								q.setString("content", "%" + n + "%");
+							}
+							return q.list();
+						}
+					});
+			return list;
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

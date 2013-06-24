@@ -20,6 +20,9 @@ function processResponse(request) {
 }
 //jQuery，多选框选中。点击删除按钮，提交。
 $(function() {
+	//登录，用户名输入框自动定位
+	$("#username").focus();
+	
 	//所有checkbox跟着全选的checkbox走。1。
 	$("#CheckAll").click(function(){
 		$("[name=chb]:checkbox").attr("checked",this.checked);
@@ -62,16 +65,19 @@ $(function() {
 		}
 	});
 	//搜索
-	$("#search-submit").click(function(){
-		str=$("#search-text").val();
-		if(str=="搜索"){
-			str="";
-		}
-		$formDeco=$("form[name=formDeco]");
-		$formDeco.attr("action","searchIndi.action?searchStr="+str);
-		$formDeco.submit();
-		
-	});
+		$("#search-submit").click(function(){
+			str=$("#search-text").val();
+			if(str=="搜索"){
+				str="";
+			}
+			$formDeco=$("form[name=formDeco]");
+			if($("input[name=viewAllIndis]").val()=="viewAllIndis"){
+				$formDeco.attr("action","searchIndi.action?searchName="+str);
+			}else if($("input[name=viewAllWcons]").val()=="viewAllWcons"){
+				$formDeco.attr("action","searchWcon.action?searchContent="+str);
+			}
+			$formDeco.submit();
+		});
 	//删除Warncontent
 	$("#delWCon").click(function(){
 		var rowFlag="";

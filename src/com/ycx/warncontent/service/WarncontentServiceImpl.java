@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ycx.dao.IndiWarnDao;
+import com.ycx.indicator.IndicatorBean;
+import com.ycx.indicator.entity.Indicator;
 import com.ycx.model.IndiWarn;
 import com.ycx.warncontent.WarncontentBean;
 import com.ycx.warncontent.dao.WarncontentDao;
@@ -94,11 +96,30 @@ public class WarncontentServiceImpl implements WarncontentService {
 		}
 	}
 
+	// 搜索
+	@Override
+	public List search(String content) {
+		try {
+			List result = new ArrayList();
+			List l = wcDao.search(content);
+			for (int i = 0; i < l.size(); i++) {
+				Warncontent wc = (Warncontent) l.get(i);
+				WarncontentBean wcb = new WarncontentBean();
+				initWarncontent(wcb, wc);
+				result.add(wcb);
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	private void initWarncontent(WarncontentBean wcb, Warncontent wc)
 			throws Exception {
 		wcb.setId(wc.getId());
 		wcb.setContent(wc.getContent());
-		wcb.setLevel(wc.getWarnlevel().getLevel());
+		wcb.setWarnlevel(wc.getWarnlevel().getLevel());
 	}
 
 	// Spirng实例化对象
